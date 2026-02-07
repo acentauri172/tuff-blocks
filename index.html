@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+		<meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+		<title>tuffblox</title>
+		<style>
+		body {
+				display: flex;
+				flex-direction: column;
+				gap: 5px;
+		}
+		iframe {
+				aspect-ratio: 16 / 9;
+		}
+		textarea {
+				aspect-ratio: 16 / 7
+		}
+		button {
+				aspect-ratio: 16 / 3;
+		}
+		button:active {
+				transform: scale(0.97);
+		}
+		</style>
+</head>
+<body>
+		<iframe id="iframe" src="./godot.html">Unsupported</iframe>
+		<textarea id="text" placeholder="Put your game json here"></textarea>
+		<button id="button">Start Game</button>
+		<div>
+				<h1>tuffblox guide</h1> <hr>
+				<p>ts is lowk tuff ✌️🥹</p>
+				<p>to create a new part, add the following code to "Workspace":</p>
+				<code>{"partName": "Part", "partType": "Part","partColor": "#686868","partMaterial": "Plastic","partPos": [0,0,0],"partSize": [100,1,100],"partRotation": [0,0,0]},</code>
+				<p>it creates a part with a size of 1*1*1</p>
+				<p>the code must be valid json, or else the game won't run</p>
+				<hr>
+				<h2>properties</h2>
+				<p>part properties</p>
+				<ol>
+						<li>partName</li>
+						<p>• a name to the part, must be unique</p>
+						
+						<li>partType</li>
+						<p>• the type of the part. currently, two types exist:</p>
+						<p>"Part" and "SpawnPosition"</p>
+						
+						<li>partColor</li>
+						<p>• color of the part in hex</p>
+						
+						<li>partMaterial</li>
+						<p>• material of the part. 3 types exist:</p>
+						<p>"Grass", "Plastic" and "WoodPlanks"</p>
+						
+						<li>partPos, partSize and partRotation</li>
+						<p>• self-explanatory, partPos is short for partPosition</p>
+						<p>the values are, respectively [X, Y, Z]</p>
+				</ol>
+		</div>
+		<script>
+		const button = document.getElementById('button');
+		const textArea = document.getElementById('text');
+		const iframe = document.getElementById('iframe')
+		const tuffbloxHQ = {
+	"Workspace": [
+		{
+			"partName": "part",
+			"partType": "Part",
+			"partColor": "#34a452",
+			"partMaterial": "Plastic",
+			"partPos": [0,0,0],
+			"partSize": [100,1,100],
+			"partRotation": [0,0,0]
+		},
+		{
+			"partName": "Spawn",
+			"partType": "SpawnPosition",
+			"partMaterial": "Plastic",
+			"partColor": "#a7a7a7",
+			"partPos": [0,0.5,0],
+			"partSize": [6,0.5,6],
+			"partRotation": [0,0,0]
+		},
+		{
+			"partName": "Building",
+			"partType": "Part",
+			"partMaterial": "Plastic",
+			"partColor": "#343434",
+			"partPos": [0,15,-20],
+			"partSize": [10,30,10],
+			"partRotation": [0,0,0]
+		},
+		{
+			"partName": "Glass1",
+			"partType": "Part",
+			"partMaterial": "Plastic",
+			"partColor": "#12a9ef",
+			"partPos": [0,15.25,-20],
+			"partSize": [7.5,27.5,10.25],
+			"partRotation": [0,0,0]
+		},
+		{
+			"partName": "Glass2",
+			"partType": "Part",
+			"partMaterial": "Plastic",
+			"partColor": "#12a9ef",
+			"partPos": [0,15.25,-20],
+			"partSize": [10.25,27.5,7.5],
+			"partRotation": [0,0,0]
+		},
+		{
+			"partName": "Wood",
+			"partType": "Part",
+			"partMaterial": "WoodPlanks",
+			"partColor": "#ae6700",
+			"partPos": [10,1,10],
+			"partSize": [1,1,2],
+			"partRotation": [0,0,0]
+		}
+	]
+}
+		string = JSON.stringify(tuffbloxHQ, null, 4);
+		string = string.replace(/\[\s+([\d\.-]+),\s+([\d\.-]+),\s+([\d\.-]+)\s+\]/g, '[$1, $2, $3]');
+		
+		textArea.value = string
+		
+		button.addEventListener('click', () => {
+				try {
+								iframe.contentWindow.postMessage(
+        textArea.value,
+        "*"
+								);
+								console.log('Data sent!');
+						}
+				catch (err) {
+						console.log(err);
+				}
+		});
+		</script>
+</body>
+</html>
